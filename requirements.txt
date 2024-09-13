@@ -1,0 +1,9 @@
+flask
+nltk
+requests
+beautifulsoup4
+textblob
+flask-session
+redis
+pymysql
+passlib

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis | Amasent</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+        }
+
+        .hello-user {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .content {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #chart-container>div>div>div {
+            margin: 10px;
+            width: 300px;
+            height: 300px;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        #chart-container>div>div>div:hover {
+            transform: scale(1.1);
+        }
+
+        .anychart-credits {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+                </li>
+            </ul>
+            <div class="hello-user">Hello, <a style="color: inherit;text-decoration: underline;"
+                    href="{{ url_for('logout') }}">{{ user }}</a></div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="content">
+            <h1>Analysis Dashboard</h1>
+
+            <div id="chart-container" style="text-align: center">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div id="chart-container-2"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="chart-container-3"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="container-chart-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+            <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+            <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+
+            <script>
+                anychart.onDocumentReady(function () {
+                    var rows = {{ sentiments| tojson
+                }};
+                var data = {
+                    header: ["Sentiment", "Count"],
+                    rows: rows,
+                };
+
+                var chart = anychart.bar();
+                chart.data(data);
+
+                chart.title("Sentiment Score");
+                chart.container("chart-container-2");
+                chart.draw();
+                });
+
+                anychart.onDocumentReady(function () {
+                    var data = {{ words| tojson
+                }};
+
+                var chart = anychart.tagCloud(data);
+
+                chart.title("Word Cloud");
+                chart.angles([0]);
+                chart.colorRange(true);
+                chart.colorRange().length("80%");
+
+                chart.container("chart-container-3");
+                chart.draw();
+                });
+
+                anychart.onDocumentReady(function () {
+                    var data = {{ reliability| tojson
+                }};
+
+                var chart = anychart.pie(data);
+
+                chart.title("Review Reliability Level");
+                chart.labels().position("outside");
+                chart.radius("70%");
+                chart.container("container-chart-4");
+                chart.draw();
+                });
+            </script>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

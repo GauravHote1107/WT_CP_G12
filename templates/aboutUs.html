@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Amasent</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+        }
+
+        .hello-user {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .content {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .textfield {
+            width: 70%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+                </li>
+            </ul>
+            <div class="hello-user">Hello, <a style="color: inherit;text-decoration: underline;"
+                    href="{{ url_for('logout') }}">{{ user }}</a></div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="content">
+            <h1>About Us</h1>
+            <p>We specialize in providing in-depth evaluations of products available on Amazon by analyzing customer
+                comments and comparing them with product ratings. Our goal is to offer users detailed and precise
+                information to help them make informed purchasing decisions.</p>
+            <p>Using advanced natural language processing techniques, we meticulously sift through customer reviews to
+                identify common themes, concerns, and praises regarding a product. By examining the most frequently used
+                words and phrases, we gain valuable insights into what customers like and dislike about a particular
+                item.
+            </p>
+            <p>We believe that informed consumers make better decisions. Join us in exploring products through the lens
+                of customer feedback and discover the insights that matter most to you.</p>
+        </div>
+    </div>
+</body>
+
+</html>
